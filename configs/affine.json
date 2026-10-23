@@ -1,0 +1,8 @@
+{
+  "horizon_s": 2,
+  "build_s": 0.2,
+  "query_rate": 200000,
+  "old_s": 6e-07,
+  "base_s": 3e-07,
+  "transition_plus_interference_cpu_s": 0.035
+}

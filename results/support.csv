@@ -1,0 +1,4 @@
+support,eligible_checks,executed_voluntary
+full,110000,1620
+composition_fallback,25000,90
+missing_path_or_build,15000,0

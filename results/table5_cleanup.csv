@@ -1,0 +1,5 @@
+policy,foreground_controller_cpu_s,maintenance_cpu_s,cleanup_cpu_s,total_cpu_s
+Fresh,814,106,31,951
+EWMA-residual,738,70,28,836
+One-round,730,86,49,865
+DriftGuard,704,76,44,824

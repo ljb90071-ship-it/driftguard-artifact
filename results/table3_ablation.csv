@@ -1,0 +1,8 @@
+policy,cycle_cpu_s,point_p99_us,peak_gib
+Size,1035,24.5,5.7
+Fresh,920,18,5.6
+EWMA-residual,808,13.7,5.3
+Residual-only,871,16.4,5.4
+No-interference,834,17.1,5.3
+One-round,816,14.2,5.4
+DriftGuard,780,13,5.2

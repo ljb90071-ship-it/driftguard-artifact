@@ -1,0 +1,13 @@
+dataset,workload,fresh_cpu_s,driftguard_cpu_s
+books,Moving,920,780
+fb,Moving,980,850
+osm,Moving,1080,950
+books,Burst,860,740
+fb,Burst,900,790
+osm,Burst,970,860
+books,Churn,990,880
+fb,Churn,1040,920
+osm,Churn,1120,980
+books,Decoupled,800,730
+fb,Decoupled,850,770
+osm,Decoupled,930,820

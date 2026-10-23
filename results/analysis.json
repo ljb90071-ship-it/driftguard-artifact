@@ -1,0 +1,8 @@
+{
+  "geomean_cycle_ratio": 0.8805231997856938,
+  "cycle_reduction_percent": 11.947680021430617,
+  "ewma_online_reduction_percent": 3.4653465346534684,
+  "ewma_cleanup_reduction_percent": 1.4354066985645897,
+  "native_point_p99_reduction_percent": 18.75,
+  "native_peak_increase_percent": 8.333333333333348
+}
