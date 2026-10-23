@@ -1,20 +1,23 @@
 # DriftGuard: Pricing Residual Updates in Learned-Index Rebuilding
 
-This companion repository provides executable reference components, a small range-transition example, paper result tables, and a guide connecting them to the manuscript. Start with the protocol example, then follow the cost model into the result summaries.
+DriftGuard prices the residual updates left by an index rebuild, connecting
+rebuild timing to the work that remains after publication. Explore the
+freeze/merge/publish protocol and cost calculations through a range-transition
+example, checks and paper result tables.
 
-## Browse
+## Navigate
 
-- [Architecture and contracts](docs/architecture.md): layer precedence, publication, failure, and host integration.
-- [Reference implementation](src/driftguard.py): exact range semantics, lower-bound validation, growth estimation, cost integration, candidate prediction, and dispatch.
-- [Paper map](paper-map.md): equations, algorithm steps, figures, tables, and file locations.
+- [Architecture and contracts](docs/architecture.md): layer precedence, publication, failure and host integration.
+- [Implementation](src/driftguard.py): range semantics, lower-bound validation, growth estimation, cost integration, candidate prediction and dispatch.
+- [Paper map](paper-map.md): equations, algorithms, figures and tables.
 - [Result tables](results/browse.html) and [field definitions](results/schema.md).
 - [Experiment parameters](configs/paper.json) and [analytic example parameters](configs/affine.json).
-- Figures: [serving timeline](figures/timeline.pdf), [execution substrate](figures/structure.pdf), [analytic boundary and offered load](figures/boundary_load.pdf).
+- Figures: [serving timeline](figures/timeline.pdf), [execution substrate](figures/structure.pdf), and [analytic boundary and offered load](figures/boundary_load.pdf).
 - [Dependencies and attribution](docs/dependencies.md).
 
-## Run the lightweight components
+## Run
 
-Python 3.10 or newer is sufficient; the executable code uses only the standard library. From this directory:
+Use Python 3.10 or later and its standard library. Run from the repository root:
 
 ```text
 python -B examples/run.py
@@ -23,14 +26,26 @@ python -B scripts/analyze.py
 python -B scripts/render_results.py
 ```
 
-The example reads [operations.json](examples/operations.json), executes writes before and during construction, and prints the logical map, new base, and residual. It asserts that publication preserves the map and the identity of the active delta. A custom input file can be supplied as the first argument. Keys and values are integers; JSON null is a deletion tombstone.
+The example reads [operations.json](examples/operations.json), executes writes
+before and during construction, and prints the logical map, new base and residual.
+It checks that publication preserves the map and active-delta identity. Supply a
+custom input file as the first argument; keys and values are integers, and JSON
+null denotes a deletion tombstone. The implementation represents layers with
+Python dictionaries, sorted scans and one mutex. The [architecture guide](docs/architecture.md)
+explains its integration with index storage, latches and allocation.
 
-The checked example output is available in [expected.json](examples/expected.json); derived aggregate comparisons are in [analysis.json](results/analysis.json). The example and analysis commands recompute these values and print JSON to the terminal; they do not overwrite the archived files. The renderer writes the HTML file.
+[expected.json](examples/expected.json) contains the example output. Tests cover
+state transitions, allocation retry, stale tokens, rank correction, repeated-key
+cardinality, numerical integration, support thresholds and mandatory dispatch.
 
-The tests exercise state transitions, allocation failure and retry, stale tokens, rank correction, repeated-key cardinality, numerical integration, support thresholds, and mandatory dispatch. They run a serialized reference model, not a throughput benchmark.
+## Analyze and browse results
 
-`analyze.py` reads the archived aggregate CSVs, validates accounting identities and cross-table values, computes the twelve-cell geometric mean and selected comparisons, and writes JSON to standard output. `render_results.py` generates a static HTML view from the CSVs; an optional first argument changes the output path. These are result-analysis commands, not commands for rerunning the large-scale system experiments.
+`analyze.py` reads aggregate CSV tables, validates accounting identities and
+cross-table values, computes the twelve-cell geometric mean and selected
+comparisons, and prints JSON. [analysis.json](results/analysis.json) contains the
+derived comparisons. The CSV [schema](results/schema.md) defines units and
+aggregation over runs.
 
-## Implementation boundary
-
-The reference range uses Python dictionaries, sorted scans, and one mutex to expose the freeze/merge/publish contract. The paper's native B+tree layout, learned-segment builder, shared/exclusive latch implementation, worker pool, and bounded allocator belong to the system layer. Their integration contracts are described in the architecture document. Supplied functions implement the central semantics and cost calculations independently of that layout. The result archive contains paper-level aggregates, not per-request traces or per-run raw observations.
+`render_results.py` creates the static HTML result view from those CSVs; its
+optional first argument selects the output path. Example and analysis commands
+print to the terminal, while the renderer writes the HTML file.
