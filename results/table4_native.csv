@@ -2,5 +2,5 @@ system,cycle_cpu_s,point_p99_us,peak_gib,stable_mops_s
 B+tree,1010,19.5,5,8.7
 XIndex,1045,23,5.8,8.4
 SALI,865,17.4,5.6,9.5
-HIRE,840,16,4.8,9.7
+HIRE+,840,16,4.8,9.7
 DriftGuard,780,13,5.2,10.2

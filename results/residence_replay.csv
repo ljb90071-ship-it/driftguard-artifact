@@ -1,0 +1,6 @@
+case,build_ms,elapsed_hot_ms,realized_hot_left_ms,duration_cap_ms,remaining_cap_ms,duration_cap_gain_cpu_ms,remaining_cap_gain_cpu_ms,duration_cap_action,remaining_cap_action,empty_delta_gain_cpu_ms,empty_delta_action,offered_point_reads,local_point_reads,local_post_publication_reads,publication_entries,applied_writes,replayed_gain_cpu_ms
+Early,200,400,1600,2000,1600,37.0,21.0,Build,Build,49.0,Build,400000,320000,280000,20000,20000,21.0
+Late,200,1900,100,2000,100,37.0,-35.0,Build,Wait,-35.0,Wait,400000,20000,0,20000,20000,-35.0
+Long after short spells,200,1400,1400,600,1400,-19.0,13.0,Wait,Build,37.0,Build,400000,280000,240000,20000,20000,13.0
+Unexpected extension,200,1900,1600,2000,100,37.0,-35.0,Build,Wait,-35.0,Wait,400000,320000,280000,20000,20000,21.0
+Same window,200,1100,900,2000,900,37.0,-7.0,Build,Wait,7.0,Build,400000,180000,140000,20000,20000,-7.0

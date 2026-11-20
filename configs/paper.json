@@ -60,5 +60,14 @@
   "residence_confirm_bins": 2,
   "residence_history_intervals": 8,
   "residence_history_expiry_s": 64,
-  "residence_min_completed_intervals": 2
+  "residence_min_completed_intervals": 2,
+  "whole_workload_horizon_rule": "total_duration_cap",
+  "residence_replay_config": "residence_replay.json",
+  "concurrent_hire_comparator": {
+    "label": "HIRE+",
+    "foreground_workers": 16,
+    "design_source": "https://arxiv.org/html/2511.21307v3#S5.SS8",
+    "synchronization": "Node-level locking with RCU snapshot and publication",
+    "retraining": "Cost-driven recalibration with a temporary update log applied to the replacement"
+  }
 }

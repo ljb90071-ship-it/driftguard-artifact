@@ -30,7 +30,11 @@ Online cycle CPU includes foreground/controller work plus admitted maintenance a
 
 ## Observable residence and class-conditioned costs
 
-`src/observations.py` implements the revised Section 3.4 residence state machine. Each contiguous 100-ms closed bin supplies local and all-range point counts. Hot means at least twice the all-range mean; zero traffic is cold. Two consecutive contrary bins change state at the start of the first of those bins. Keep eight completed intervals, expiring 64 seconds after exit; use their median only with at least two. Unfinished intervals do not enter that median. The final horizon is the minimum of configured, residence (when supported), and capacity bounds. The workload rotation time is not an input.
+`src/observations.py` implements the Section 3.5 residence rules. Each closed 100-ms bin supplies the local and global point-arrival counts. Hot means at least twice the global mean, with zero traffic treated as cold. Two consecutive contrary bins confirm a change from the start of the first bin. The detector keeps eight completed intervals, expiring each 64 seconds after exit.
+
+`conditioned_horizon` uses the age at the end of the last observed hot bin. It retains completed intervals at least that long, subtracts the observed age from each, and takes the median when at least two remain. It then subtracts the delay from that bin to dispatch, including a first unconfirmed cold bin. A cold range or insufficient history uses only the configuration and capacity caps. The total-duration comparison uses `horizon`, which takes the median of all retained durations. Table 2 uses both predictors on the same dispatch state. The whole-workload matched policies share the total-duration cap.
+
+The replay counts offers independently of completion. Off-range offers are common to both arms. Within each case, the reference evaluates the same stream against keeping the old range and taking the candidate. It checks the active delta's identity at publication and checks the logical map at drain. Costs come from the replay input, including the entire transition charge and the additional probe after publication.
 
 `class_point_cost` accepts one logical class at a time. A tombstone termination is a logical miss. The denominator and termination count must be from the same class, age, occupancy and layer cell; base cost is conditional on fall-through. Aggregate cost uses each class's own request rate.
 

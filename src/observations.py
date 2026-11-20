@@ -36,11 +36,28 @@ class ResidenceCap:
             self.intervals.popleft()
 
     def horizon(self, now, configured=2, capacity=float('inf')):
+        """Cap by completed total durations, without conditioning on age."""
         self._expire(now)
         bounds = [configured, capacity]
         if len(self.intervals) >= 2:
             bounds.append(median(duration for _, duration in self.intervals))
         return max(0, min(bounds))
+
+    def conditioned_horizon(self, now, configured=2, capacity=float('inf')):
+        """For a hot range, cap by the median remaining time of comparable spells."""
+        self._expire(now)
+        bounds = [configured, capacity]
+        if self.hot:
+            # One unconfirmed cold bin contributes delay, not observed hot age.
+            last_hot_end = self.last_end - self.streak * self.bin_s
+            age = last_hot_end - self.start
+            delay = max(0.0, now - last_hot_end)
+            remaining = [max(0.0, duration - age)
+                         for _, duration in self.intervals
+                         if duration + 1e-8 >= age]
+            if len(remaining) >= 2:
+                bounds.append(median(remaining) - delay)
+        return max(0.0, min(bounds))
 
 
 def interference_residual(structural_cpu, active_cpu):

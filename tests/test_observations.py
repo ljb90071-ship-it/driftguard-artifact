@@ -24,6 +24,24 @@ class ObservationTests(unittest.TestCase):
         self.assertEqual(len(r.intervals),0)
         self.assertEqual(r.horizon(.5),2)
 
+    def test_conditioned_window_at_recorded_end_and_beyond(self):
+        tracker = ResidenceCap()
+        # Two 0.4 s completed spells and a third still hot through 0.4 s.
+        counts = [30, 30, 30, 30, 0, 0] * 2 + [30] * 4
+        for index, count in enumerate(counts, start=1):
+            tracker.observe(index / 10, count, 100, 10)
+        self.assertAlmostEqual(tracker.horizon(1.6), .4)
+        self.assertAlmostEqual(tracker.conditioned_horizon(1.6), 0)
+        tracker.observe(1.7, 30, 100, 10)
+        self.assertAlmostEqual(tracker.conditioned_horizon(1.7, capacity=.6), .6)
+
+    def test_conditioned_window_discounts_time_since_last_hot_bin(self):
+        tracker = ResidenceCap()
+        counts = [30] * 8 + [0, 0]
+        for index, count in enumerate(counts * 2 + [30, 30, 0], start=1):
+            tracker.observe(index / 10, count, 100, 10)
+        self.assertAlmostEqual(tracker.conditioned_horizon(2.35), .45)
+
     def test_cost_decomposition_and_conditioning(self):
         self.assertAlmostEqual(interference_residual(.62,.70),.08)
         self.assertEqual(interference_residual(.62,.60),0)

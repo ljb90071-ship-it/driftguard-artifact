@@ -10,7 +10,7 @@ class AnalysisTests(unittest.TestCase):
             rows=original(name)
             if name=='table4_native.csv':
                 for row in rows:
-                    if row['system']=='HIRE':row.update(point_p99_us='20',peak_gib='4')
+                    if row['system']=='HIRE+':row.update(point_p99_us='20',peak_gib='4')
             if name=='figure3_load.csv':
                 for row in rows:
                     if float(row['offered_mops_s'])==8:row['hire_point_p99_us']='20'

@@ -24,11 +24,11 @@ def analyze():
  assert sum(int(x['executed_voluntary']) for x in support)==1710
  native={x['system']:x for x in read('table4_native.csv')}
  load=next(x for x in read('figure3_load.csv') if float(x['offered_mops_s'])==8)
- assert float(load['hire_point_p99_us'])==float(native['HIRE']['point_p99_us'])
+ assert float(load['hire_point_p99_us'])==float(native['HIRE+']['point_p99_us'])
  assert float(load['driftguard_point_p99_us'])==float(native['DriftGuard']['point_p99_us'])
  return {'geomean_cycle_ratio':ratio,'cycle_reduction_percent':100*(1-ratio),
  'ewma_online_reduction_percent':100*(1-float(ablation['DriftGuard']['cycle_cpu_s'])/float(ablation['EWMA-residual']['cycle_cpu_s'])),
  'ewma_cleanup_reduction_percent':100*(1-float(clean['DriftGuard']['total_cpu_s'])/float(clean['EWMA-residual']['total_cpu_s'])),
- 'native_point_p99_reduction_percent':100*(1-float(native['DriftGuard']['point_p99_us'])/float(native['HIRE']['point_p99_us'])),
- 'native_peak_increase_percent':100*(float(native['DriftGuard']['peak_gib'])/float(native['HIRE']['peak_gib'])-1)}
+ 'native_point_p99_reduction_percent':100*(1-float(native['DriftGuard']['point_p99_us'])/float(native['HIRE+']['point_p99_us'])),
+ 'native_peak_increase_percent':100*(float(native['DriftGuard']['peak_gib'])/float(native['HIRE+']['peak_gib'])-1)}
 if __name__=='__main__':print(json.dumps(analyze(),indent=2))

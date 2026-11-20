@@ -1,0 +1,23 @@
+{
+  "observation_bin_ms": 100,
+  "trace_bin_ms": 10,
+  "window_ms": 2000,
+  "build_ms": 200,
+  "point_offers_per_second": 200000,
+  "ranges": 4,
+  "writes_during_build": 20000,
+  "cost_ns": {
+    "wait_point": 600,
+    "building_point": 600,
+    "clean_point": 300,
+    "published_delta_probe": 100,
+    "transition": 35000000
+  },
+  "cases": [
+    {"case": "Early", "ages_ms": [2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000], "elapsed_hot_ms": 400, "realized_hot_left_ms": 1600},
+    {"case": "Late", "ages_ms": [2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000], "elapsed_hot_ms": 1900, "realized_hot_left_ms": 100},
+    {"case": "Long after short spells", "ages_ms": [400, 500, 500, 600, 600, 2800, 2800, 2800], "elapsed_hot_ms": 1400, "realized_hot_left_ms": 1400},
+    {"case": "Unexpected extension", "ages_ms": [2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000], "elapsed_hot_ms": 1900, "realized_hot_left_ms": 1600},
+    {"case": "Same window", "ages_ms": [2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000], "elapsed_hot_ms": 1100, "realized_hot_left_ms": 900}
+  ]
+}
