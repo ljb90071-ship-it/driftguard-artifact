@@ -11,9 +11,9 @@
 |Section 4, Proposition 4.1|[Range](src/driftguard.py), [JSON example](examples/operations.json), [tests](tests/test_core.py)|Freeze/write/failure/retry/publication, tombstone precedence and identity preservation.|
 |Section 4.3, Eq. 12|[architecture](docs/architecture.md)|Stopping and capacity integration contract; recurrence is manuscript analysis.|
 |Table 1|[dispatch](src/driftguard.py)|Frozen, mandatory, support, reservation, robust minimum-gain branches.|
-|Figure 1 and Table 2|[timeline](figures/timeline.pdf), [input](configs/residence_replay.json), [runner](examples/replay_residence.py), [results](results/residence_replay.csv)|Fixed-candidate early, late, long and extended episodes with modeled CPU costs. The same-window case isolates the price of the carried delta.|
-|Figure 2|[structure](figures/structure.pdf), [Range](src/driftguard.py)|Immutable merge inputs and retained D+.|
-|Figure 3|[boundary/load figure](figures/boundary_load.pdf), [analytic CSV](results/figure3_analytic.csv), [load CSV](results/figure3_load.csv)|Exact plotted values; analysis validates analytic panel and 8-Mops/s table cross-reference.|
+|Figure 1 and Table 2|[timeline](figures/timeline.pdf), [input](configs/residence_replay.json), [runner](examples/replay_residence.py), [results](results/residence_replay.csv)|Figure 1 aligns early and late publication with the same hotspot departure. Table 2 adds the long, extended, and same-window cases with modeled CPU costs.|
+|Figure 2|[structure](figures/structure.pdf), [Range](src/driftguard.py)|The figure traces one key through the immutable merge inputs and retained D+.|
+|Figure 3|[boundary/load figure](figures/boundary_load.pdf), [analytic CSV](results/figure3_analytic.csv), [load CSV](results/figure3_load.csv)|The analytic panel marks the zero crossing. The load panel uses the same offered-load scale for both systems. The analysis validates the analytic values and the 8-Mops/s table entries.|
 |Tables 3–6|[result browser](results/browse.html), [schema](results/schema.md), [analysis](scripts/analyze.py)|System comparison summaries, ablations and cleanup. The historical CSV filenames retain their original numbers.|
 |Section 6|[paper configuration](configs/paper.json)|Evaluation and estimator parameters.|
 |Section 7.6 support counts|[support CSV](results/support.csv)|Bin-close support opportunity partition and attributed executions.|
